@@ -1,0 +1,129 @@
+ #{extends 'main.html' /} #{set title:'register.html' /}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript"
+	src="@{'/public/javascripts/jquery-1.4.2.min.js'}"></script>
+<script type="text/javascript">
+var listAction = #{jsAction @Chat.checkName(':name')/}
+
+$(function(){
+	$("#detal-click").click(function(){
+		$('#detal-regist').slideToggle()
+	})
+	$('.id').change(function(){
+		var id=$('.id').val();
+		$('.result').load(listAction({name:id}),function(data){
+	   	var answer=null;
+		if(data=='YES'){
+			$('.result').css("color","green");
+			answer="·可通过";
+		}
+		else{
+			$('.result').css("color","red");
+			answer="·用户已存在";
+		}
+		$('.result').html(answer);});
+     });
+	//ajax检测账号名是否存在
+	
+});
+</script>
+<style type="text/css">
+body{
+	background-image:url("@{'/public/images/2.jpg'}");
+	background-repeat:repeat-x;
+	
+}
+
+</style>
+<body>
+<div class="r-out">
+	<a href="@{index()}">退出</a>
+</div>
+<div class="register">
+	<div class="r-top">
+		<p>play framework chatting demo</p>
+	</div>
+	<div style="margin-left:30px;margin-top:15px;">
+		<strong style="font-size:30px;">Register</strong>
+	</div>
+	<form action="@{saveUser()}" method="post"
+		enctype="multipart/form-data" />
+	#{field 'user.username'}
+	<p>
+		<label> 姓名： </label> <input type="text" name="${field.name}"
+			class="id" name="" /> <span class='result'></span>
+	</p>
+	#{/field} 
+<!-- 	#{field 'user.password'} -->
+	<p>
+		<label> 密码： </label> <input type="password" name="password" /> <span
+			class="error">${field.error}</span>
+	</p>
+<!-- 	#{/field}  -->
+	#{field 'verifypassword'}
+	<p>
+		<label> 确认密码： </label> <input type="password" name="${field.name}" />
+		<span class="error">${field.error}</span>
+	</p>
+	#{/field} #{field 'user.sex'}
+	<p>
+		<label> 性别： </label> <span class="sex">男</span> <input type="radio"
+			name="${field.name}" value="male" style="width:20px;"/> <span class="sex">女</span> <input
+			type="radio" name="${field.name}" value="female" style="width:20px;"/>
+	</p>
+	#{/field}
+
+	<hr />
+	<p>
+		<a href="#" id="detal-click" style="color:red;">点击</a>填写详细信息
+	</p>
+	<hr />
+	<div id="detal-regist" style="display: none">
+		#{field 'user.mysign'}
+		<p>
+			<label> 个人签名： </label> <input type="text" name="${field.name}" />
+		</p>
+		#{/field} #{field 'user.age'}
+		<p>
+			<label>年龄:</label> <input type="text" name="${field.name}" />
+		</p>
+		#{/field} #{field 'user.favor'}
+		<p>
+			<label>兴趣爱好:</label> <input type="text" name="${field.name}" />
+
+		</p>
+		#{/field}
+
+		<p>
+			<label>籍贯:</label> #{field 'user.province'} <input type="text"
+				name="${field.name}" />省- #{/field} #{field 'user.city'} <input
+				type="text" name="${field.name}" />市 #{/field}
+		</p>
+
+		#{field 'user.mail'}
+		<p>
+			<label>邮件地址:</label> <input type="text" name="${field.name}" />
+		</p>
+		#{/field} #{field 'user.context'}
+		<p>
+			<label>个人描述:</label> <input type="text" name="${field.name}" />
+		</p>
+		#{/field}
+
+
+	</div>
+	<p class="r_button">
+		<input type="submit" value="提交" class="submit"/> 
+		<input type="reset" value="重置"/>
+	</p>
+
+
+
+
+
+	</form>
+
+
+</div>
+
+</body>

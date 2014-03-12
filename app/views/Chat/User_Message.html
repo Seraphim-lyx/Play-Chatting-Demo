@@ -1,0 +1,70 @@
+#{extends 'main.html' /}
+#{set title: 'user_message'/}
+<meta charset=utf-8">
+<script type="text/javascript">
+function MakeFriend(friend){
+	$.post('@{SaveFriend()}',{"friend":friend},function(data){
+		$(".user_message").html(data)
+	})
+}
+</script>
+<style type="text/css">
+table tr td{
+/* 	text-align:center; */
+	font-size:22px;
+}
+table tr{
+	height:45px;
+}
+
+</style>
+
+<div id="User_Message_Form" >
+	<div class="message_top"><a href="#" style="float:right" onclick="CloseMessage()">关闭</a></div>
+	<div class="message_main">
+<table style="margin-left:80px;margin-top:20px;" border-bottom="1">
+	<tr>
+		<td style="width:30%;">姓名:</td>
+		<td style="width:40%;">${user.username}<span style="color:green;">${isfriend==true?"(好友)":""}</span></td>
+		<td>性别:</td>
+		<td>
+		#{if user.sex=='male'}
+			<img src="@{'/public/images/male.jpg'}"/>
+		#{/if}
+		#{else}
+			<img src="@{'/public/images/female.jpg'}"/>
+		#{/else}
+		</td>
+	</tr>
+	
+	<tr>
+		<td>签名:</td>
+		<td colspan="3">${user.mysign}</td>
+	</tr>
+	<tr>
+		<td>地址:</td>
+		<td colspan="3">${user.province}-${user.city}</td>
+	</tr>
+	<tr>
+		<td>年龄:</td>
+		<td>${user.age}</td>
+		<td>兴趣:</td>
+		<td>${user.favor}</td>
+	</tr>
+	<tr>
+		<td>邮件地址:</td>
+		<td colspan="3">${user.mail}</td>
+	</tr>
+	
+		<tr>
+		%{if(user.username!=session.get("user")&&isfriend!=true){}%
+		<td><input type="button" value="添加好友" onclick="MakeFriend('${user.username}')" style="background-color:#457299;color:#BFF5FF;border:0px;width:70px;height:30px;margin-left:40px;"/> </td>
+		%{}}%
+		<td colspan="3"><input type="button" value="私信" style="background-color:#457299;color:#BFF5FF;border:0px;width:70px;height:30px;float:right;" onclick="SendMessage('${user.username}')"/></td>
+		</tr>
+	
+	
+</table>
+</div>
+</div>
+</body>

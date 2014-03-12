@@ -1,0 +1,21 @@
+#{extends 'main.html'/}
+<script src="@{'/public/javascripts/crypto/jsbn.js'}"></script>
+<script src="@{'/public/javascripts/crypto/prng4.js'}"></script>
+<script src="@{'/public/javascripts/crypto/rng.js'}"></script>
+<script src="@{'/public/javascripts/crypto/rsa.js'}"></script>
+
+<script type="text/javascript">
+	$(function(){
+		$("#login").click(function(){
+			var cipher=new RSAKey();
+			cipher.setPublic('${pubky.getModulus().toString(16)}','${pubky.getPublicExponent().toString(16)}');
+			var encrypted = cipher.encrypt("123");
+			console.log(encrypted);
+			$.post("@{tt()}",{"pass":encrypted},function(data){
+				alert(data)
+			})
+		})
+	})
+</script>
+<input type="button" id="login" value="set"/>
+<input type="button" id="check" value="get"/>

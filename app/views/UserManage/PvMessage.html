@@ -1,0 +1,36 @@
+#{extends 'main.html' /}
+#{set title:'PrivateMessage.html' /}
+<meta charset=utf-8/>
+<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/UserManage.css'}"/>
+<script type="text/javascript">
+	$(function(){
+		$("#check-message").click(function(){
+			$.post("@{ShowMessageList()}",{"check":"0"},function(data){
+				$("#PvShow").html(data);
+				
+			})
+			
+		})
+		$("#checked-message").click(function(){
+			$.post("@{ShowMessageList()}",{"check":"1"},function(data){
+				$("#PvShow").html(data)
+			})
+		})
+	})
+</script>
+<div id="PvMain">
+	<div id="PvTop">
+		<div style="float:left;">
+			<span style="margin-top:30px;"><strong>Message</strong></span>
+		</div>
+		<div style="float:right;padding-right:80px;">
+			<span><input type="button" value="未读信息" id="check-message"/></span>
+			<span><input type="button" value="所有信息" id="checked-message"/></span>
+		</div>
+	</div>
+	<div id="PvShow">
+		
+	
+	</div>
+</div>
+

@@ -1,0 +1,62 @@
+#{extends 'main.html' /}
+#{set title:'ShowMessage.html' /}
+<meta charset=utf-8/>
+<script type="text/javascript">
+function DelMessage(id){
+	if(confirm('确定删除?')){
+		$.post("@{DeleteMessage()}",{"id":id},function(data){
+			alert(data);
+			$("#Manage_Main_Right").load('@{PvMessage()}')
+		})
+	}
+}
+</script>
+<style type="text/css">
+.send-message span strong{
+		margin-left:50px;
+		font-size:22px;	
+}
+.send-message p{
+	margin-top:0px;
+}
+#Manage_Main_Right{
+	filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF',endColorStr='#F7F7F7',gradientType='0'); 
+	background: -moz-linear-gradient(top, #FFFFFF, #F7F7F7); 
+	background: -o-linear-gradient(top,#FFFFFF, #F7F7F7); 
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#F7F7F7));
+	}
+</style>
+<div style="margin-top:30px;">
+	<div><a href="#" onclick="PvMessage()" style="float:right;margin-right:50px;font-size:30px;">返回</a></div>
+	<br/><br/><br/>
+	<div align="center"><span>标题:</span><span style="font-size:30px;"><strong>${pv.title}</strong></span></div>
+	<hr/>	
+	<div class="send-message">
+		<p>
+			<span><strong>收件人:</strong></span>
+			<span>${pv.towho}</span>
+		</p>
+		<hr/>
+		<p>
+			<span><strong>发件人:</strong></span>
+			<span>${pv.fromwho}</span>
+		</p>
+		<hr/>
+		<p>
+			<span><strong>发送时间:</strong></span>
+			<span>${pv.date.format("yyyy-MM-dd")}</span>
+		</p>
+		<hr/>	
+	</div>
+	<div style="width:100%;">
+		<p style="text-align:center;font-size:23px;width:100%;">${pv.message.raw()}</p>
+	</div>
+	<div style="float:right;margin-right:50px;">
+		<input type="button" value="回复" onclick="SendMessage('${pv.fromwho}')"/>
+		<input type="button" value="删除" onclick="DelMessage('${pv.id}')"/>
+	</div>	
+		
+
+
+
+</div>

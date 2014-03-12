@@ -1,0 +1,108 @@
+#{extends 'main.html' /}
+<meta charset="utf-8"/>
+#{set title:'ManageMain.html' /}
+<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/UserManage.css'}"/>
+<script type="text/javascript">
+ 	
+	$(function(){
+		$(".update_user_message").click(function(){
+			$("#Manage_Main_Right").load('@{UserMessage()}')
+		})
+		$(".update_user_password").click(function(){
+			$("#Manage_Main_Right").load('@{ChangePassword()}')
+		})
+		$(".update_user_pvmessage").click(function(){
+			$("#Manage_Main_Right").load('@{PvMessage()}')
+		})
+		$(".update_user_friend").click(function(){
+			$("#Manage_Main_Right").load('@{FriendList()}')
+		})
+		$("")
+		$(".SearchUser").click(function(){
+			$(this).val("")
+		})
+	})
+function SearchUser(){
+ 		var username=$(".SearchUser").val()
+ 		$.post("@{Chat.User_Message()}",{"username":username},function(data){
+ 			if(data=='error'){
+ 				alert("无此用户");
+ 			}
+ 			else{
+ 			$(".user_message").html(data);
+ 			
+			var box =300;
+ 			
+ 			var th= $(window).scrollTop()+$(window).height()/1.8-box;
+ 			
+ 			var h =document.body.clientHeight;
+ 			
+ 			var rw =$(window).width()/2-box;
+ 			
+ 			$(".user_message").animate({top:th,opacity:'show',width:600,height:340,left:rw-30},500);
+ 			}
+ 		})
+ 	}
+ function CloseMessage(){
+ 	/*
+ 	关闭用户信息窗口
+ 	*/
+ 	$(".user_message").animate({top:0,opacity:'hide',width:0,height:0,left:0},500);
+ }
+ function PvMessage(){
+	 $("#Manage_Main_Right").load("@{PvMessage()}")
+ }
+ function SendMessage(username){
+	 $(".send_message").load("@{SendMessage()}",{"username":username})
+	 	var box =300;
+		
+		var th= $(window).scrollTop()+$(window).height()/1.7-box;
+		
+		var h =document.body.clientHeight;
+		
+		var rw =$(window).width()/2-box;
+		
+		$(".send_message").animate({top:th,opacity:'show',width:600,height:340},500);
+		
+		
+ }
+ function CloseSendMessage(){
+	 $(".send_message").animate({top:0,opacity:'hide',width:0,height:0},500);
+ }
+ function defaultOnLoad(){
+	 if('${msg}'!="")
+	 	alert('${msg}')
+	 if('${defaultLoad}'!=""){
+	 	$("#Manage_Main_Right").load('${defaultLoad}')
+	 }
+ }
+
+</script>
+<body style="background-color:#F8F8F8" onload="defaultOnLoad()">
+<div id="Manage_Main">
+	<div id="Manage_Main_Top">
+		<span style="margin-left:20px;float:left;"><a href="@{Chat.chat()}" title="Chat Room"><img src="@{'/public/images/home.png'}" width="80px" height="65px;"/></a></span>
+		<span style="font-size:40px;margin-left:30px;float:left;margin-top:10px;font-weight:bold;">Welcome,${session.get("user")}</span>
+		<span style="float:left;margin-left:80px;margin-top:20px;"><input type="text" style="border-radius:10px;width:250px;height:25px;" value="Search User" class="SearchUser"/></span>
+		<span style="float:left;"/><a href="#" title="Search" onclick="SearchUser()"><img src="@{'/public/images/search.png'}"/></a></span>
+		<span style="margin-left:100px;"><a href="#" title="Friends"/><img src="@{'/public/images/user.png'}" width="50px" height="65px;" class="update_user_friend"/></a></span>
+		<span style="margin-left:50px;"><a href="#" title="Send Message" onclick="SendMessage('')"><img src="@{'/public/images/mail.png'}" width="80px" height="65px"/></a></span>
+		<span style="margin-left:30px;"><a href="#" title="About Us"><img src="@{'/public/images/question.png'}" width="60px" height="65px" onclick="javascript:alert('服务条款不知道写什么好~~_(:3J∠)_')"/></a></span>
+		<span style="float:right;"><a href="@{Chat.out()}" title="Exit" ><img src="@{'/public/images/exit.png'}"/></a></span>
+	</div>
+	<div id="Manage_Main_Left">
+		<div><a href="#" class="update_user_message">User</a></div>
+		<div><a href="#" class="update_user_password">Password</a></div>
+		<div><a href="#" class="update_user_friend">Friends</a></div>
+		<div><a href="#" class="update_user_pvmessage">Message</a></div>
+	</div>
+	<div id="Manage_Main_Right">
+		
+	</div>
+
+
+<div class='user_message' style="display:none;background-color:white;"></div>
+<div class="send_message" style="position:fixed;left:30%;"></div>
+
+</div>
+</body>

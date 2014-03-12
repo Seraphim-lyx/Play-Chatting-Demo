@@ -1,0 +1,90 @@
+#{extends 'main.html' /}
+<meta charset=utf-8"/>
+<METAHTTP-EQUIV="Pragma"CONTENT="no-cache"/>
+<METAHTTP-EQUIV="Cache-Control"CONTENT="no-cache"/>
+<METAHTTP-EQUIV="Expires"CONTENT="0"/>
+#{set title:'FriendList.html' /}
+
+<style type="text/css">
+	#Manage_Main_Right{
+	filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF',endColorStr='#E2F0F9#F0F8FA',gradientType='0'); 
+	background: -moz-linear-gradient(top, #FFFFFF, #F0F8FA); 
+	background: -o-linear-gradient(top,#FFFFFF, #F0F8FA); 
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#F0F8FA));
+	}
+</style>
+<script type="text/javascript">
+function ShowMessage(me){
+/*
+点击在线人数名单
+弹出相应用户信息窗口
+	
+*/
+	var box =300;
+	
+	var th= $(window).scrollTop()+$(window).height()/1.6-box;
+	
+	var h =document.body.clientHeight;
+	
+	var rw =$(window).width()/2-box;
+	
+	$(".user_message").animate({top:th,opacity:'show',width:600,height:340,left:rw-30},500);
+	
+	
+	$.post('@{Chat.User_Message()}',{"username":me},function(data){
+		$(".user_message").html(data)
+	})
+}
+
+function RemoveFriend(username,page){
+	if(confirm("确定删除好友["+username+"]?")){
+		$.post("@{RemoveFriend()}",{"username":username,"page":page},function(data){
+			$("#Manage_Main_Right").html(data)
+		})
+	}
+}
+
+</script>
+
+<div>
+<div id="Friend_Top"><span style="font-family:Forte">Friends</span></div>
+#{list items:user,as:'user'}
+	
+	<div style="margin-top:20px;border-bottom:2px #E1E6F6 solid;height:70px;">
+		
+			<div>
+				<span style="font-size:30px;margin-left:10px;">${user.username}</span>
+				<span>
+					#{if user.sex=='male'}
+						<img src="@{'/public/images/male.jpg'}"/>
+					#{/if}
+					#{else}
+						<img src="@{'/public/images/female.jpg'}"/>
+					#{/else}
+				</span>
+				<span>${user.province}&nbsp;${user.city}</span><br/>
+				<span style="margin-left:30px;">签名:${user.mysign}</span>
+			</div>
+			<div style="float:right;margin-right:100px;margin-top:-40px;padding-right:70px;">
+				<input type="button" value="详细信息" onclick="ShowMessage('${user.username}')"/>
+				<input type="button" value="发送私信" onclick="SendMessage('${user.username}')"/>
+				<input type="button" value="移除" onclick="RemoveFriend('${user.username}','${page}')"/>
+			</div>
+				
+			
+		
+	</div>
+#{/list}
+</div>
+<div style="float:right;margin-right:200px;margin-top:50px;">
+	<span>当前第${page}页</span>
+	#{if page>1}
+	<a href="@{FriendList(page-1)}">上一页</a>
+	#{/if}
+	#{if page < total}
+	<a href="@{FriendList(page+1)}">下一页</a>
+	#{/if}
+	<span style="margin-left:20px;">共${total}页</span>
+</div>
+
+

@@ -1,0 +1,31 @@
+#{extends 'main.html' /}
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/UserManage.css'}"/>
+#{set title:'UserMessage.html' /}
+
+
+
+<body style="border-radius:10px">
+	<div id="User_Message_Main">
+		<div id="User_Message_Top"><span style="font-family:Forte">User</span></div>
+		<hr/>
+		<form name="form" method="post" class="user_form" action="@{UpdateUserMessage()}">
+			<p style="margin-top:0px;"><span class="user_title">Name:</span><span class="user_show_message" style="font-size:20px;">${user.username}</span></p>
+			<p><span class="user_title">Sign:</span><span class="user_show_message"><input type="text" name="mysign" class="user_text" value='${user.mysign}'/></span></p>
+			<p><span class="user_title">Sex:</span><span class="user_show_message"><input type="radio" name="sex" value="male" {%if(user.sex=='male')out.println('checked=checked')%}>Male<input type="radio" name="sex" value="female" {%if(user.sex=='female')out.println('checked=checked')%}/>Female</span></p>
+			<p><span class="user_title">Age:</span><span class="user_show_message"><input type="text" name="age" class="user_text" style="width:120px" value="${user.age}"/></span></p>
+			<p><span class="user_title">Address:</span><span class="user_show_message">Province:<input type="text" name="province" class="user_text" style="width:80px;" value="${user.province}">&nbsp;&nbsp;&nbsp;City:<input type="text" name="city" class="user_text" style="width:80px;" value="${user.city}"/></span></p>
+			<p><span class="user_title">E-Mail:</span><span class="user_show_message"><input type="text" name="mail" class="user_text" value="${user.mail}"/></span></p>
+			<p><span class="user_title">Favor:</span><span class="user_show_message"><input type="text" name="favor" class="user_text" value="${user.favor}"/></span></p>
+			<p><span class="user_title">Context:</span>
+			<span class="user_show_message">
+				<textarea name="context" style="width:500px;height:300px">
+				${user.context}
+				</textarea>
+			</span>
+			</p>
+			<p style="margin-top:0px;"><input type="submit" value="submit" style="width:70px;height:30px;border-radius:10px;margin-left:80%;"/></p>
+		</form>
+	</div>
+
+</body>

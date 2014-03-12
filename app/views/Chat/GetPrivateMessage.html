@@ -1,0 +1,12 @@
+#{extends 'main.html' /}
+#{set title:'GetPrivateMessage.html' /}
+
+<table>
+	#{list items:list, as:'list'}
+	<tr>
+		<td>${list.towho}</td>
+		<td>${list.fromwho}</td>
+		<td>${list.message}</td>
+	</tr>
+	#{/list}
+</table>

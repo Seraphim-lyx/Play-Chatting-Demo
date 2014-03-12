@@ -1,0 +1,309 @@
+------WebKitFormBoundaryH8lOuXZjd3PyrGAc
+Content-Disposition: form-data; name="user.username"
+
+abc
+------WebKitFormBoundaryH8lOuXZjd3PyrGAc
+Content-Disposition: form-data; name="user.password"
+
+123
+------WebKitFormBoundaryH8lOuXZjd3PyrGAc
+Content-Disposition: form-data; name="verifypassword"
+
+123
+------WebKitFormBoundaryH8lOuXZjd3PyrGAc
+Content-Disposition: form-data; name="f"; filename="channel.html"
+Content-Type: text/html
+
+<meta charset="utf-8">
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+<script type="text/javascript">
+	function Initlist(){
+		$("#noselectedChannel").html("");
+		$("#selectedChannel").html("");
+		$("[name='channel']").each(function()
+		{	
+			if($(this).attr("checked")!="checked")
+			{
+				$("<div class='channelItem' flag='0' selectflag='0' changeflag='0'>"+$(this).attr("channelName")+"</div>").appendTo("#noselectedChannel");
+			}else
+			{
+				$("<div class='channelItem' flag='0' selectflag='1' changeflag='0'>"+$(this).attr("channelName")+"</div>").appendTo("#selectedChannel");
+			}
+		}	
+			)
+		$(".channelItem").click(
+				function()
+				{
+					if($(this).attr("selectflag")=="0")
+					{
+						$("[selectflag='1']").attr("flag","0");
+						$("[selectflag='1']").css("background-color","white");
+						$("[selectflag='1']").css("color","black");
+/*						$("[selectflag='1']").each(function()
+							{
+								$("[channelName='"+$(this).text()+"']").attr("checked","checked");
+							}
+							)
+						$("#button").text("添加>>");*/
+
+					}else
+					{
+						$("[selectflag='0']").attr("flag","0");
+						$("[selectflag='0']").css("color","black");
+						$("[selectflag='0']").css("background-color","white");
+/*						$("[selectflag='0']").each(function()
+							{
+								$("[channelName='"+$(this).text()+"']").removeAttr("checked");
+							}
+							)
+						$("#button").text("<<移除");*/
+					}
+					if($(this).attr("flag")=="0")
+					{
+						$(this).css("background-color","#4177D6");
+						$(this).css("color","white");
+						$(this).attr("flag","1");
+						
+
+/*						if($(this).attr("selectflag")=="0")
+						$("[channelName='"+$(this).text()+"']").attr("checked","checked");
+						else
+						{
+							$("[channelName='"+$(this).text()+"']").removeAttr("checked");
+						}*/
+					}else
+					{
+						$(this).css("background-color","white");
+						$(this).css("color","black");
+						$(this).attr("flag","0");
+/*						if($(this).attr("selectflag")=="0")
+						$("[channelName='"+$(this).text()+"']").removeAttr("checked");
+						else
+						{
+							$("[channelName='"+$(this).text()+"']").attr("checked","checked");
+						}*/
+					}
+				}
+			) 
+	}
+	
+	function updatelist(){
+		$("#noselectedChannel").html("");
+		$("#selectedChannel").html("");
+		$("[name='channel']").each(function()
+		{	
+			if($(this).attr("checked")!="checked")
+			{
+				$("<div class='channelItem' flag='0' selectflag='0' changeflag='"+$(this).attr("changeflag")+"'>"+$(this).attr("channelName")+"</div>").appendTo("#noselectedChannel");
+			}else
+			{
+				$("<div class='channelItem' flag='0' selectflag='1' changeflag='"+$(this).attr("changeflag")+"'>"+$(this).attr("channelName")+"</div>").appendTo("#selectedChannel");
+			}
+		}	
+			)
+		$(".channelItem").click(
+				function()
+				{
+					if($(this).attr("selectflag")=="0")
+					{
+						$("[selectflag='1']").attr("flag","0");
+						$("[selectflag='1']").css("background-color","white");
+						$("[selectflag='1']").css("color","black");
+/*						$("[selectflag='1']").each(function()
+							{
+								$("[channelName='"+$(this).text()+"']").attr("checked","checked");
+							}
+							)
+						$("#button").text("添加>>");*/
+
+					}else
+					{
+						$("[selectflag='0']").attr("flag","0");
+						$("[selectflag='0']").css("color","black");
+						$("[selectflag='0']").css("background-color","white");
+/*						$("[selectflag='0']").each(function()
+							{
+								$("[channelName='"+$(this).text()+"']").removeAttr("checked");
+							}
+							)
+						$("#button").text("<<移除");*/
+					}
+					if($(this).attr("flag")=="0")
+					{
+						$(this).css("background-color","#4177D6");
+						$(this).css("color","white");
+						$(this).attr("flag","1");
+						
+
+/*						if($(this).attr("selectflag")=="0")
+						$("[channelName='"+$(this).text()+"']").attr("checked","checked");
+						else
+						{
+							$("[channelName='"+$(this).text()+"']").removeAttr("checked");
+						}*/
+					}else
+					{
+						$(this).css("background-color","white");
+						$(this).css("color","black");
+						$(this).attr("flag","0");
+/*						if($(this).attr("selectflag")=="0")
+						$("[channelName='"+$(this).text()+"']").removeAttr("checked");
+						else
+						{
+							$("[channelName='"+$(this).text()+"']").attr("checked","checked");
+						}*/
+					}
+				}
+			) 
+	}
+function addlist()
+{
+	$("[selectflag='0']").each(
+			function()
+			{
+				if($(this).attr("flag")=="1")
+				{
+					$("[channelName='"+$(this).text()+"']").attr("checked","checked");
+					var changeflag=parseInt($(this).attr("changeflag"));
+					changeflag++;
+					$("[channelName='"+$(this).text()+"']").attr("changeflag",changeflag);
+					
+				}
+			}
+		);
+	updatelist();
+
+}
+		
+function removelist()
+{
+	$("[selectflag='1']").each(function()
+			{
+				if($(this).attr("flag")=="1")
+				{$("[channelName='"+$(this).text()+"']").removeAttr("checked");
+				var changeflag=parseInt($(this).attr("changeflag"));
+					changeflag--;
+					$("[channelName='"+$(this).text()+"']").attr("changeflag",changeflag);
+				}
+					
+			}
+		);
+	updatelist();
+}		
+
+function Channelsubmit()
+{
+	$("[name='channel']").attr("checked","checked");
+	$("[name='channelhandle']").attr("checked","checked");
+	$("[name='channel']").each(function()
+			{
+				if($(this).attr('changeflag')=="1")
+				{
+					$(this).attr('name',"addchannels");
+					$("[channelName='"+$(this).attr("channelName")+"']").each(
+							function()
+							{
+								if($(this).attr("name")=="channelhandle")
+								{
+									$(this).attr('name',"addhandles");
+								}
+							}
+						)
+					
+				}else if($(this).attr('changeflag')=="-1")
+				{
+					$(this).attr('name',"removechannels");
+					$("[channelName='"+$(this).attr("channelName")+"']").each(
+							function()
+							{
+								if($(this).attr("name")=="channelhandle")
+								{
+									$(this).attr('name',"removehandles");
+								}
+							}
+						)
+				}
+			}
+		);
+	$("#channelform").submit();
+}
+
+		
+</script>
+<style type="text/css">
+a
+{
+	color: black;
+
+}
+.channelList
+{
+	width:250px;
+	float:left;
+	max-height: 550px;
+	OVERFLOW-Y: auto;
+	 OVERFLOW-X:hidden
+}
+.channelItem
+{
+	width: 100%;
+	
+	background-color: white;
+	margin-top:1px; 
+}
+.container
+{
+	width:700px;
+}
+.middle
+{
+	float: left;
+	width:80px;
+	padding-top: 45%;
+	height: 100%;
+}
+.list
+{
+	float: left;
+}
+</style>
+<div class="container">
+	<select name="group">
+		<option value="">请选择分组</option>
+	</select>
+<div id="left" class="list">	
+	<h4>未选频道</h4>
+	<div id="noselectedChannel" class="channelList">
+	</div>
+</div>	
+	<div class="middle">
+		<button onclick="addlist()" id="button">添加>></button>
+		<button onclick="removelist()" id="button"><<移除</button>
+	</div>
+<div id="right" class="list">
+	<h4>已选频道</h4>	
+	<div id="selectedChannel" class="channelList">
+	</div>
+</div>
+
+
+<div id="channel-list" style="display:none">
+	<form id="channelform" action="">
+	<input type="checkbox" value="test1" name="channel" channelName="翡翠台" changeflag="0"><input type="checkbox" value="1234" name="channelhandle" channelName="翡翠台" changeflag="0">
+	<input type="checkbox" value="test2" name="channel" channelName="本港台" changeflag="0"><input type="checkbox" value="1235" name="channelhandle" channelName="本港台" changeflag="0" >
+	<input type="checkbox" value="test3" name="channel" channelName="广州台" changeflag="0" checked="checked"><input type="checkbox" value="1236" name="channelhandle" channelName="广州台" checked="checked">
+	<input type="checkbox" value="test4" name="channel" channelName="珠江台" changeflag="0" checked="checked"><input type="checkbox" value="1237" name="channelhandle" channelName="珠江台"  changeflag="0" checked="checked" >
+
+	<form>
+
+</div>
+
+<button onclick="Channelsubmit()">test</button> 
+<script type="text/javascript">
+Initlist();
+		
+	
+
+</script>
+
+------WebKitFormBoundaryH8lOuXZjd3PyrGAc--

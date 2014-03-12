@@ -1,0 +1,93 @@
+#{extends 'main.html' /} #{set title:'Home' /}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<script type="text/javascript" src="@{'/public/javascripts/lrtk.js'}"></script>
+
+<script src="@{'/public/javascripts/crypto/jsbn.js'}"></script>
+<script src="@{'/public/javascripts/crypto/prng4.js'}"></script>
+<script src="@{'/public/javascripts/crypto/rng.js'}"></script>
+<script src="@{'/public/javascripts/crypto/rsa.js'}"></script>
+<script type="text/javascript">
+	$(function() {
+		$(".checklogin").click(
+				function() {
+					var cipher = new RSAKey();
+					cipher.setPublic('${pubky.getModulus().toString(16)}',
+							'${pubky.getPublicExponent().toString(16)}');
+					var encrypted = cipher.encrypt($(".pass").val());
+					var username = $(".username").val();
+					console.log(encrypted);
+					$.post('@{login()}', {
+						"password" : encrypted,
+						"username" : username
+					}, function(data) {
+						if (data == 'success') {
+							top.location.href = '@{chat()}';
+						} else {
+							alert(data);
+						}
+					})
+				})
+	})
+</script>
+<style type="text/css">
+body {
+	background-image: url("@{'/public/images/2.jpg'}");
+	background-repeat: repeat-x;
+	background-attachment: scroll;
+	margin: auto;
+	
+}
+.index-root{
+background-image:url("@{'/public/images/login_root.png'}"); 
+width:100%;
+height:100px;
+margin-top:-100px;
+} 
+</style>
+
+	<div class="main">
+		<div class="header">
+			<p>play framework chatting demo</p>
+		</div>
+		<div class="focus">
+			<ul class="rslides f426x240">
+				<li><a href="#" target="_blank"><img
+						src="@{'/public/images/01.jpg'}" alt="脌脕脠脣脥录驴芒脠芦脨脗赂脛掳忙" /></a></li>
+				<li><a href="#" target="_blank"><img
+						src="@{'/public/images/02.jpg'}" alt="JS麓煤脗毛" /></a></li>
+				<li><a href="#" target="_blank"><img
+						src="@{'/public/images/03.jpg'}" alt="露脕隆拢脢茅隆拢" /></a></li>
+				<li><a href="#" target="_blank"><img
+						src="@{'/public/images/04.jpg'}" alt="脥酶脪鲁卤鲁戮掳" /></a></li>
+				<li><a href="#" target="_blank"><img
+						src="@{'/public/images/05.jpg'}" alt="脧脝脝冒脥脙脣鹿禄霉脰梅脪氓脭脣露炉脨脗赂脽鲁卤" /></a></li>
+			</ul>
+		</div>
+		<div class="login">
+			<p align="center" style="color: red"></p>
+
+			<p class="field">
+				<label>姓名:</label> <input type="text" name="username"
+					class="username" />
+			</p>
+
+			<p class="field">
+				<label>密码:</label> <input type="password" name="password"
+					class="pass" />
+			</p>
+			<p class="button">
+				<input type="button" value="登陆" class="checklogin"
+					style="box-shadow: 2px 2px 3px #888888;" /> <a href="@{register()}">
+					注册 </a>
+			</p>
+
+
+
+
+
+		</div>
+	</div>
+

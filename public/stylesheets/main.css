@@ -1,0 +1,291 @@
+body
+{
+	background-color:#FFFFCC;
+	margin-left:0px;
+	margin-top:0px;
+}
+
+a
+{
+	color:grey;
+	text-decoration:none
+}
+
+
+.main
+{   background-color:white;
+    border:3px black solid;
+    margin:110px auto;
+/*     margin-right:50px; */
+    width:700px;
+    min-height:355px;
+}
+.header
+{
+	width:700px;
+	background-color:black;
+	float:left;
+}
+.header p
+{
+	color:white;
+	text-shadow: 0 0 5px rgba(255,255,255,.5);
+	 font-size: 18px;
+	 font-weight: lighter;
+}
+.login
+{
+   
+    margin:50px auto;
+    margin-left:25px;
+	float:left;
+	
+}
+.field label
+{
+    font-size:20px;
+}
+.field input
+{
+	font-size:10px;
+}
+.button input
+{
+	font-size:15px;
+}
+
+
+
+
+
+
+
+
+
+
+/****************index********************/
+
+
+.focus{width:426px;height:240px;border:1px solid #EEE;position:relative;margin-top:6px;float:left;border-right:1px black solid;}
+.f426x240{width:426px;height:240px;overflow:hidden}
+.f426x240 img{width:426px;height:240px}
+
+.rslides{width:100%;position:relative;list-style:none;padding:0}
+.rslides_nav{height:51px;width:31px;position:absolute;-webkit-tap-highlight-color:rgba(0,0,0,0);top:50%;left:0;opacity:0.5;text-indent:-9999px;overflow:hidden;text-decoration:none;background:url(../images/i.png) no-repeat 0 -560px;margin-top:-28px}
+.rslides_nav:active{opacity:1.0}
+.rslides_nav.next{left:auto;background-position:-31px -560px;right:0}
+.rslides_tabs{margin:12px auto;clear:both;text-align:center}
+.rslides_tabs li{display:inline;float:none;_float:left;*float:left;margin-right:5px}
+.rslides_tabs a{text-indent:-9999px;overflow:hidden;-webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;background:rgba(0,0,0, .2);background:#DDD;display:inline-block;_display:block;*display:block;width:9px;height:9px}
+.rslides_tabs .rslides_here a{background:rgba(0,0,0, .6);background:#390}
+
+
+/************************½¹µã¿ò*******************************/
+#chat
+{
+	background:grey;
+}
+
+.r-out a
+{   float:right;
+    font-size:30px;
+	color:blue;
+}
+.register
+{   position:relative;
+	background:white;
+    border:1px #F0F0F0 solid;
+    border-radius:10px;
+    top:50px;
+    left:350px;
+    width:560px;	
+}
+.r-top
+{   
+	border:1px solid;
+	border-radius:10px;
+	background:black;
+}
+.r-top p
+{
+	color:white;
+	text-shadow: 0 0 5px rgba(255,255,255,.5);
+	 font-size: 18px;
+	 font-weight: lighter;
+	 
+}
+.register form
+{
+	padding-left:10px;
+}
+.register label
+
+{
+	width:150px;
+	float:left;
+	text-align:right;
+	font-size:15px;
+	font-weight:bold;
+	background-color:#F0F0F0;
+}
+.register input
+{
+	font-size:5px;
+	width:150px;
+	border-radius:20px;
+	margin-left:10px;
+	margin-top:-2px;
+}
+.r_button
+{
+	padding-left:10px;
+}
+.r_button input
+{
+	font-size:10px;
+	margin-left:120px;
+	
+	width:70px;
+	height:30px;
+	
+}
+.error
+{
+	font-size:15px;
+	color:red;
+}
+/**************************register************************/
+
+.chat-top
+{
+	background-color:black;
+	height:40px;
+	width:100%;
+	float:left;
+	
+}
+.t-left
+{
+   color:yellow;
+   font-size:25px;
+   margin-left:10px;
+}
+.t-right
+{
+	color:blue;
+	float:right;
+	font-size:25px;
+	margin-right:10px;
+}
+#show
+{  background-color:white;
+    width:73%;
+    height:440px;
+    margin:10px auto;
+     overflow-y: scroll;
+     float:left;
+}
+#say
+{
+ margin-top:10px;
+  height:60px;
+}
+#say textarea
+{
+	width:73%;
+	height:70px;
+}
+#button
+{ 
+	font-size:20px;
+}
+#user
+{   background-color:white;
+    margin-top:10px;
+	border:1px black solid;
+	height:530px;
+	float:right;
+	width:25%;
+	overflow-y:scroll;
+}
+.message {
+    border-bottom: 1px solid #efefef;
+    position: relative;
+}
+
+.message h2 {
+    background: #efefef;
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100px;
+    text-align: right;
+    border-right: 1px solid #ccc;
+}
+
+.message p {
+    font-size: 12px;
+    padding: 5px;
+    margin: 0 0 0 110px;
+}
+
+.message.you * {
+    background: #FFFFCC;
+}
+
+.message.notice * {
+    background: #D9E7FB;
+}
+
+.message.notice h2 {
+    visibility: hidden;
+}
+
+.message.notice p {
+    margin: 0;
+    padding-left: 115px;
+}
+.onLine
+{   position:relative;
+    top:-17px;
+    left:110px;
+	width:200px;
+	
+}
+.onLine div
+{   
+	color:red;
+	font-size:20px;
+}
+.user_message
+{
+	position:fixed;
+	border:1px #8FA4F5 solid;
+	width:600px;
+	height:400px;
+	right:400px;
+	top:100px;
+	border-radius:10px;
+}
+/***************chat**************/
+
+.message_top{
+	height:30px;
+	background:#3366CC;
+	border-radius:10px;
+}
+.message_top a{
+	color:white;
+	font-size:20px;
+	margin-right:25px;
+	margin-top:5px;
+}
+.message_main{
+	background-color:white;
+}

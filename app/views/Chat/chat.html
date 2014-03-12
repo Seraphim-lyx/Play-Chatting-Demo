@@ -1,0 +1,198 @@
+#{extends 'main.html' /}
+<meta charset=utf-8">
+<METAHTTP-EQUIV="Pragma"CONTENT="no-cache">
+<METAHTTP-EQUIV="Cache-Control"CONTENT="no-cache">
+<METAHTTP-EQUIV="Expires"CONTENT="0">
+#{set title:'chat.html' /}
+<script type="text/javascript" src="@{'/public/javascripts/bootstrap.min.js'}"></script>
+<script type="text/javascript">
+function SendMessage(username){
+	 $(".send_message").load("@{UserManage.SendMessage()}",{"username":username})
+	 	var box =300;
+		
+		var th= $(window).scrollTop()+$(window).height()/1.7-box;
+		
+		var h =document.body.clientHeight;
+		
+		var rw =$(window).width()/2-box;
+		
+		$(".send_message").animate({top:th,opacity:'show',width:600,height:340},500);
+		
+		
+}
+function CloseSendMessage(){
+	 $(".send_message").animate({top:0,opacity:'hide',width:0,height:0},500);
+}
+var length=0
+$(function(){
+	$('#button').click(function(e)
+ 		 {
+ 		 	var message=$('#message').val();
+ 		 	$("#message").val('');
+ 		 	$.post('@{postMessage()}',{message:message});
+ 		 	
+ 	});
+	
+})
+
+
+var getMessages=function()
+{
+	 $.ajax
+	 ({
+		url:'@{newMessages()}',
+		success:function(messages)
+		{  
+			$(messages).each(function()
+			{
+			   display(this);	
+			});
+		},
+		complete:function(){
+			getMessages();
+		},
+		dataType:'json'
+	 });
+}	
+
+var display=function(message)
+{	
+	$('#show').append(tmpl('showtext',{message:message}));
+}
+function ShowMessage(me){
+	/*
+	点击在线人数名单
+	弹出相应用户信息窗口
+	
+	*/
+	var box =300;
+	
+	var th= $(window).scrollTop()+$(window).height()/1.6-box;
+	
+	var h =document.body.clientHeight;
+	
+	var rw =$(window).width()/2-box;
+	
+	$(".user_message").animate({top:th,opacity:'show',width:600,height:340,left:rw-30},500);
+	
+	
+	$.post('@{User_Message()}',{"username":me},function(data){
+		$(".user_message").html(data)
+	})
+}
+function CloseMessage(){
+	/*
+	 关闭用户信息窗口
+	*/
+	$(".user_message").animate({top:0,opacity:'hide',width:0,height:0,left:0},500);
+}
+	
+	
+	
+var getUsers=function()
+{	
+	/*
+	
+	客户端ajax请求服务器动态实时更新聊天信息
+	死循环，由play的suspend判断请求进程截断
+	对服务器有一定压力
+	
+	*/
+	var users=new Array()
+	$.ajax
+	({
+		url:'@{onLineUser()}',
+		type:'POST',
+		data:{
+			"num":length
+		},
+		success:function(messages)
+		{	
+			
+			var user=""
+			$(messages).each(function(){
+				users.push(this)
+				user=user+"<a href='#' onclick=ShowMessage('"+this+"') style='color:#369bd7;'><strong>"+this+"</strong></a>"+"<br/>"
+				
+			})
+			length=users.length
+			$(".onLine").html(user)
+			$(".usernum").html(messages.length)
+		},
+		complete:function()
+		{	
+			getUsers()
+		},
+		dataType:'json'
+	});
+}
+getUsers()
+</script>
+
+<body id="chat" onload="getMessages()">
+
+<div class="chat-top"">
+<label class="t-left" style="margin-top:5px;">
+<strong>
+Welcome,${session.get("user")}
+</strong>
+
+</label>
+<a href="@{out()}" class="t-right" style="float:right;color:yellow;margin-top:5px;">
+EXIT
+</a>
+<a style="float:right;margin-right:50px;" href="@{UserManage.ManageMain()}">
+	<img src="@{'/public/images/tool.jpg'}" style="height:40px;"/>
+</a>
+</div>
+
+<div id="user" style="float:right;">
+<span style="font-size:25px;">当前在线人数:<span class='usernum' style="color:red;">${num}</span>人</span>
+<hr/>
+
+<div style="margin-top:20px;font-size:20px;">当前在线用户:</div>
+<div class="onLine" style="font-size:25px;margin-left:30px;margin-top:-10px;">
+
+</div>
+</div>
+
+<div id="show">
+<script type="text/html" id="showtext">
+	 <div class="message <%= message.user == '${session.user}' ? 'you' : '' %> <%= message.user == 'notice' ? 'notice' : '' %>">
+			<h2><%=message.user %></h2>
+			<p>
+				<%= message.text.replace('\n', '<br/>') %>
+                <span style="margin-left:50px"><%= message.date%></span>
+			</p>
+	</div>
+               
+          
+</script>
+</div>
+<div id="say">
+  <form>
+     <textarea id="message" name="message"></textarea>
+     <br/>
+     <input type="button" id="button" value="send" style="border-radius:10px;border:0px red solid;font-size:20px;color:#369BDE;width:80px;'"/>
+  </form>
+</div>
+<div class="user_message" style="display:none;box-shadow:5px 5px 4px #888888;">
+	
+</div>
+<div class="send_message" style="position:fixed;left:30%;"></div>
+
+<div style="width:100%s;height:40px;margin-top:550px;text-align:center;">
+	<hr/>
+	<div style="margin-left:auto;font-size:20px;">
+		<strong>@scau-lyx</strong>
+	</div>
+</div>
+   
+</body>
+
+
+  
+
+
+
+
